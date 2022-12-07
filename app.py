@@ -1,9 +1,8 @@
 from flask import Flask,render_template,request
-import pickle
+from joblib import load
 
-
-# Load the Decision Tree Classifier model
-model = pickle.load(open('Notebook\model.pkl', 'rb'))
+with open("Notebook\model.sav", "rb") as f:
+    model = load(f)
 
 app = Flask(__name__)
 
@@ -19,22 +18,36 @@ def DiabetesPage():
 def CheckDiabetesPage():
     if request.method == 'POST':
         try:
+            print(request.form)
             user_data = request.form.to_dict()
-            Pregnancies = int(user_data['Pregnancies'])
-            Glucose = int(user_data['Glucose'])
-            BloodPressure = int(user_data['BloodPressure'])
-            SkinThickness = int(user_data['SkinThickness'])
-            Insulin = int(user_data['Insulin'])
-            BMI = float(user_data['BMI'])
-            DiabetesPedigreeFunction = float(user_data['DiabetesPedigreeFunction'])
-            Age = int(user_data['Age'])
+            # print(user_data)
+
+            Pregnancies = int(request.form['pregnancies'])
+            print(Pregnancies)
+            Glucose = int(request.form['glucose'])
+            print(Glucose)
+            BloodPressure = int(request.form['bloodpressure'])
+            print(BloodPressure)
+            SkinThickness = int(request.form['skinthickness'])
+            print(SkinThickness)
+            Insulin = int(request.form['insulin'])
+            BMI = float(request.form['bmi'])
+            DiabetesPedigreeFunction = float(request.form['dpf'])
+            Age = int(request.form['age'])
+                    
             data = [Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]
             # user_data = list(user_data.values())
             output = model.predict([data])
+
+            if output == 1:
+                output = "Diabetic"
+            else:
+                output = "Not Diabetic"
+                
         except Exception as e:
             output = f"Error: {e}"
              
-        return render_template('diabetes.html', user_data=output)
+        return render_template('diabetes.html', user_data = output)
 
     else:
         return render_template('diabetes.html')
