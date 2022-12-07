@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Diabetes</title>
+        <link rel="stylesheet" href="css\style.css">
+    </head>
+    <body>
+        <form action="/predict_D" method="POST">
+            <div class="container">
+                <h1>Diabetes</h1>
+                <p>Enter your details to check if you have diabetes.</p>
+                <hr>
+                <label for="pregnancies"><b>Pregnancies</b></label>
+                <input type="number" placeholder="Enter Pregnancies" name="pregnancies" required><br>
+                <label for="glucose"><b>Glucose</b></label>
+                <input type="number" placeholder="Enter Glucose" name="glucose" required><br>
+                <label for="bloodpressure"><b>Blood Pressure</b></label>
+                <input type="number" placeholder="Enter Blood Pressure" name="bloodpressure" required><br>
+                <label for="skinthickness"><b>Skin Thickness</b></label>
+                <input type="number" placeholder="Enter Skin Thickness" name="skinthickness" required><br>
+                <label for="insulin"><b>Insulin</b></label>
+                <input type="number" placeholder="Enter Insulin" name="insulin" required><br>
+                <label for="bmi"><b>BMI</b></label>
+                <input type="number" placeholder="Enter BMI" name="bmi" required><br>
+                <label for="dpf"><b>DPF</b></label>
+                <input type="number" placeholder="Enter DPF" name="dpf" required><br>
+                <label for="age"><b>Age</b></label>
+                <input type="number" placeholder="Enter Age" name="age" required><br>
+                <hr>
+                <button type="submit" class="registerbtn">Check</button>
+            </div>
+            <hr>
+            <hr>
+            <div>
+                {{ user_data }}
+            </div>
+    </body>
+</html>
